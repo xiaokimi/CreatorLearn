@@ -1,0 +1,10 @@
+{
+  "name": "creator-learn",
+  "uuid": "b9e8951c-519b-43b9-87e9-740511d8e36f",
+  "creator": {
+    "version": "3.8.6"
+  },
+  "dependencies": {
+    "blueimp-md5": "^2.19.0"
+  }
+}

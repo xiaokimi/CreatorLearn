@@ -1,0 +1,26 @@
+{
+    "$schema": "./@types/schema/package/index.json",
+    "package_version": 2,
+    "name": "hot-update",
+    "version": "1.0.0",
+    "author": "xiaokimi",
+    "editor": ">=3.8.6",
+    "scripts": {
+        "preinstall": "node ./scripts/preinstall.js",
+        "build": "tsc"
+    },
+    "title": "i18n:hot-update.title",
+    "description": "i18n:hot-update.description",
+    "contributions": {
+        "builder": "./dist/builder.js"
+    },
+    "dependencies": {
+        "fs-extra": "^10.0.0"
+    },
+    "devDependencies": {
+        "@cocos/creator-types": "^3.8.6",
+        "@types/fs-extra": "^9.0.5",
+        "@types/node": "^18.17.1",
+        "typescript": "^5.8.2"
+    }
+}
