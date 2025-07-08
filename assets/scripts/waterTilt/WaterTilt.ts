@@ -1,4 +1,5 @@
 import { _decorator, Component, Graphics, math, Node, tween, Vec2 } from 'cc';
+import { autoBindNode, initBindings } from '../framework/NodeDecorator';
 const { ccclass, property } = _decorator;
 
 @ccclass('WaterTilt')
@@ -8,6 +9,7 @@ export class WaterTilt extends Component {
     private _bottleHeight: number = 200;
     private _bottlePos: Vec2 = new Vec2(-100, -100);
 
+    @autoBindNode(Graphics)
     private _graphics: Graphics | null = null;
     private _maxRandians: number = 0;
 
@@ -20,11 +22,11 @@ export class WaterTilt extends Component {
     @property
     waterColor: math.Color = math.Color.WHITE;
 
+    @initBindings
     protected onLoad(): void {
         // 临界角度
         this._maxRandians = Math.atan(Math.min(2 * this.waterHeight, this._bottleHeight) / this._bottleWidth);
 
-        this._graphics = this.getComponent(Graphics);
         this.drawWater();
         this.node.angle = this.waterAngle;
 

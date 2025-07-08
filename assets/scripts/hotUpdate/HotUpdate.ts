@@ -1,4 +1,4 @@
-import { _decorator, Component, game, native, Node } from 'cc';
+import { _decorator, Button, Component, game, native, Node } from 'cc';
 import { MD5 } from './MD5';
 import { NATIVE } from 'cc/env';
 
