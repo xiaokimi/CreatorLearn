@@ -1,17 +1,21 @@
 import { _decorator, Component, screen, view, sys, Button } from 'cc';
 import { eventMgr } from '../framework/EventManager';
 import { autoBindNode, initBindings } from '../framework/NodeDecorator';
+import { webSocketMgr } from '../framework/WebSocketManager';
 const { ccclass, property } = _decorator;
 
 @ccclass('ScreenAdapter')
 export class ScreenAdapter extends Component {
-    @autoBindNode("Button", Button)
-    private _button: Button | null = null;
+    @autoBindNode("Button_connect", Button)
+    private _buttonConnect: Button | null = null;
+
+    @autoBindNode("Button_disconnect", Button)
+    private _buttonDisconnect: Button | null = null;
 
     @initBindings
     protected onLoad(): void {
-        eventMgr.on("test", this.test, this);
-        this._button.node.on(Button.EventType.CLICK, this.onButtonClick, this);
+        this._buttonConnect.node.on(Button.EventType.CLICK, this.connect, this);
+        this._buttonDisconnect.node.on(Button.EventType.CLICK, this.disconnect, this);
 
         // 设计分辨率下的可视区域
         const visibleSize = view.getVisibleSize();
@@ -36,15 +40,15 @@ export class ScreenAdapter extends Component {
     }
 
     protected onDestroy(): void {
-        eventMgr.off("test", this.test, this);
-        this._button.node.off(Button.EventType.CLICK, this.onButtonClick, this);
+        this._buttonConnect.node.off(Button.EventType.CLICK, this.connect, this);
+        this._buttonDisconnect.node.off(Button.EventType.CLICK, this.disconnect, this);
     }
 
-    private onButtonClick(): void {
-        eventMgr.emit("test", 10);
+    private connect(): void {
+        webSocketMgr.connect("ws://192.168.3.111:8000?uid=111");
     }
 
-    private test(num: number): void {
-        console.log(`------------- ${num}`);
+    private disconnect(): void {
+        webSocketMgr.disconnect();
     }
 }
