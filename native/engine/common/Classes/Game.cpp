@@ -42,6 +42,8 @@
 const std::string CACHE_VERSION_KEY = "cacheVersionCode";
 const std::string HOT_UPDATE_PATH = "remote-asset";
 
+extern bool jsb_register_simple_math(se::Object *);
+
 Game::Game() = default;
 
 int Game::init() {
@@ -60,6 +62,9 @@ int Game::init() {
     _debuggerInfo.pauseOnStart = false;
 
     _xxteaKey = SCRIPT_XXTEAKEY;
+
+    auto *seengine = se::ScriptEngine::getInstance();
+    seengine->addRegisterCallback(jsb_register_simple_math);
 
     BaseGame::init();
 
