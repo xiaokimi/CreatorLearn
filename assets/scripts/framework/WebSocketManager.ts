@@ -1,3 +1,5 @@
+import { eventMgr } from "./EventManager";
+
 export class WebSocketManager {
     private static _instance: WebSocketManager | null = null;
 
@@ -53,10 +55,11 @@ export class WebSocketManager {
 
     private onOpen(event: Event): void {
         this._reconnectCount = 0;
+        eventMgr.emit("SocketState", "OnOpen");
     }
 
     private onError(event: Event): void {
-
+        eventMgr.emit("SocketState", `OnError ${event}`);
     }
 
     private onMessage(message: MessageEvent): void {
@@ -64,7 +67,9 @@ export class WebSocketManager {
     }
 
     private onClose(event: CloseEvent): void {
-        this.reconnect();
+        console.log(`${event.code}: ${event.reason}`);
+        //this.reconnect();
+        eventMgr.emit("SocketState", `OnClose ${event.code}: ${event.reason}`);
     }
 
     private reconnect(): void {
